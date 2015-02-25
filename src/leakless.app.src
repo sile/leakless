@@ -1,0 +1,12 @@
+%% vim: set ft=erlang : -*- erlang -*-
+{application, leakless,
+ [
+  {description, "Miscellaneous process related resource management modules"},
+  {vsn, git},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {env, []}
+ ]}.
