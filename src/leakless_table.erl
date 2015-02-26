@@ -138,7 +138,7 @@ flush(Connection) ->
 
 -spec flush(table_ref(), peer(), key()) -> ok.
 flush(Table, Peer, Key) ->
-    case where(Table) of
+    case whereis_name(Table) of
         undefined -> ok;
         TablePid  ->
             Recur =
@@ -348,8 +348,8 @@ do_connect(Spec = {_, Peer, _}, Entry0, Edges0) ->
     Edges1 = gb_trees:insert(Connection, Spec, Edges0),
     {Entry1, Edges1, Connection}.
 
--spec where(table_ref()) -> pid() | undefined.
-where({global, Name})          -> global:whereis_name(Name);
-where({via, Module, Name})     -> Module:whereis_name(Name);
-where(Name) when is_atom(Name) -> whereis(Name);
-where(Pid) when is_pid(Pid)    -> Pid.
+-spec whereis_name(table_ref()) -> pid() | undefined.
+whereis_name({global, Name})          -> global:whereis_name(Name);
+whereis_name({via, Module, Name})     -> Module:whereis_name(Name);
+whereis_name(Name) when is_atom(Name) -> whereis(Name);
+whereis_name(Pid) when is_pid(Pid)    -> Pid.
