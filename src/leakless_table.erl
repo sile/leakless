@@ -98,7 +98,7 @@ store(Table, Key, Value) ->
       Reason :: {already_exists, value()}.
 store_connect(Table, Type, Peer, Key, Value) when is_pid(Peer) ->
     _ = lists:member(Type, edge_types()) orelse error(badarg, [Table, Type, Peer, Key, Value]),
-    gen_server:call(Table, {store_connect, {{Table, Peer, Key}, Value}}).
+    gen_server:call(Table, {store_connect, {{Type, Peer, Key}, Value}}).
 
 -spec find(table_ref(), key()) -> {ok, value()} | error.
 find(Table, Key) ->
